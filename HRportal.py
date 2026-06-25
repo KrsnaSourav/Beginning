@@ -11,15 +11,22 @@ except:
     employees =[]
 
 def login():
-    username = input("Enter username: ").strip()
-    password = input("Enter password: ").strip()
+    attempts = 3
+    while attempts > 0:
+        
+        username = input("Enter username: ").strip()
+        password = input("Enter password: ").strip()
 
-    if username in users and users[username]["password"] == password:
-        print("Login successful")
-        return users[username]["role"]
-    
-    print("Invalid login!")
+        if username in users and users[username]["password"] == password:
+            print("Login successful")
+            return users[username]["role"]
+            
+        attempts -= 1
+        print(f"Invalid login! Attempts left: {attempts})
+        
+    print("Too many failed attempts")
     return None
+    
 
 def save_data():
     with open("employees.json", "w") as file:
